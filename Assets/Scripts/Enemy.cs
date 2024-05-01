@@ -5,6 +5,8 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public float moveSpeed = 5.0f;
+    public float damage = 5.0f;
+    public float health = 40.0f;
 
     public Rigidbody2D rb;
     public Animator animator;
@@ -12,25 +14,36 @@ public class Enemy : MonoBehaviour
 
     public Transform target;
 
-    private Vector2 movementDir;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private Vector2 moveDir;
 
     // Update is called once per frame
     void Update()
     {
-        movementDir = (target.position - transform.position).normalized;
+        if (target)
+        {
+            moveDir = (target.position - transform.position).normalized;
 
-        if (movementDir.x < 0) spriteRenderer.flipX = true;
-        else if (movementDir.x > 0) spriteRenderer.flipX = false;
+            if (moveDir.x < 0) spriteRenderer.flipX = true;
+            else if (moveDir.x > 0) spriteRenderer.flipX = false;
+        }
+        else
+        {
+            moveDir = Vector2.zero;
+        }
     }
 
     private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movementDir * moveSpeed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + moveDir * moveSpeed * Time.fixedDeltaTime);
+    }
+
+    public void OnDamage(float damage)
+    {
+        health -= damage;
+
+        if(health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

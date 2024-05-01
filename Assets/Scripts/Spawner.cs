@@ -12,15 +12,16 @@ public class Spawner : MonoBehaviour
 
     public Transform player;
 
-    // Start is called before the first frame update
-    void Start()
+    public void SpawnEnemies()
     {
         StartCoroutine(SpawnCoroutine(spawnInterval));
     }
 
     private IEnumerator SpawnCoroutine(float interval)
     {
-        while (true)
+        GameManager gameManager = FindObjectOfType<GameManager>();
+
+        while (!gameManager.gameOver)
         {
             Vector2 randomPosition = GenerateRandomPosition();
 
