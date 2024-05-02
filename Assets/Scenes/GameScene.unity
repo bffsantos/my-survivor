@@ -1128,7 +1128,7 @@ PrefabInstance:
       objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 7371548685456234384, guid: 70beb5f1444da1d40a782af176c8eae0, type: 3}
       propertyPath: m_Name
-      value: ArenaBackground
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 7371548685456234384, guid: 70beb5f1444da1d40a782af176c8eae0, type: 3}
       propertyPath: m_IsActive
