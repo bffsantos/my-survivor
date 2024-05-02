@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -33,6 +34,23 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         rb.MovePosition(rb.position + moveDir * moveSpeed * Time.fixedDeltaTime);
+
+        if (transform.position.x <= -14.5f)
+        {
+            transform.position = new Vector2(-14.5f, transform.position.y);
+        } 
+        else if (transform.position.x >= 14.5f)
+        {
+            transform.position = new Vector2(14.5f, transform.position.y);
+        }
+        else if (transform.position.y <= -14.5f)
+        {
+            transform.position = new Vector2(transform.position.x, -14.5f);
+        }
+        else if (transform.position.y >= 14.5f)
+        {
+            transform.position = new Vector2(transform.position.x, 14.5f);
+        }
     }
 
     private void Shoot()

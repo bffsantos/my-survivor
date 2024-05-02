@@ -1236,6 +1236,10 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1659305627}
+    - target: {fileID: 1223081549928613755, guid: 4bc801b8003d7ec4bad3be556668de0d, type: 3}
+      propertyPath: spawnInterval
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2340210499437206240, guid: 4bc801b8003d7ec4bad3be556668de0d, type: 3}
       propertyPath: m_Name
       value: Spawner
