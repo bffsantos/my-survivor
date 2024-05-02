@@ -29,16 +29,19 @@ public class Player : MonoBehaviour
         {
             Shoot();
         }
+
+        Movement();
+
     }
 
-    void FixedUpdate()
+    private void Movement()
     {
         rb.MovePosition(rb.position + moveDir * moveSpeed * Time.fixedDeltaTime);
 
         if (transform.position.x <= -14.5f)
         {
             transform.position = new Vector2(-14.5f, transform.position.y);
-        } 
+        }
         else if (transform.position.x >= 14.5f)
         {
             transform.position = new Vector2(14.5f, transform.position.y);
@@ -61,11 +64,15 @@ public class Player : MonoBehaviour
         Vector3 inputPosition = new Vector3(mouseX, mouseY, 10.0f);
 
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(inputPosition);
-        Vector3 projectileDir = (mousePosition - transform.position).normalized;
+        Vector3 distanceVector = mousePosition - transform.position;
+        Vector3 projectileDir = distanceVector.normalized;
 
         GameObject projectileGameObject = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
         Projectile projectile = projectileGameObject.GetComponent<Projectile>();
         projectile.moveDir = projectileDir;
+
+        float angle = Mathf.Atan2(distanceVector.y, distanceVector.x) * Mathf.Rad2Deg;
+        projectileGameObject.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 
     private void PlayerAnimation()
