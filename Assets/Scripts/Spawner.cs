@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public GameObject enemyPrefab;
+    [SerializeField] private GameObject _enemyPrefab;
+    [SerializeField] private GameObject _playerPrefab;
+    
+    private Transform player;
 
     public Vector2 spawnArea;
 
     public float spawnInterval;
 
-    public Transform player;
+    public void SpawnPlayer()
+    {
+        GameObject playerGameObject = Instantiate(_playerPrefab);
+        player = playerGameObject.transform;
+    }
 
     public void SpawnEnemies()
     {
@@ -27,7 +34,7 @@ public class Spawner : MonoBehaviour
 
             randomPosition += (Vector2)player.position;
 
-            GameObject enemy = Instantiate(enemyPrefab);
+            GameObject enemy = Instantiate(_enemyPrefab);
             enemy.transform.position = randomPosition;
             enemy.GetComponent<Enemy>().target = player;
 

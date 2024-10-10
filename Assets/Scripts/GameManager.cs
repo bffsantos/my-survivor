@@ -1,20 +1,24 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    public CanvasManager canvasManager;
-    public Spawner spawner;
-    
-    public Player player;
+    private Spawner _spawner;
     
     public bool gameOver;
+
+    public event EventHandler OnGameStarted;
+    public event EventHandler OnGameOver;
 
     // Start is called before the first frame update
     void Start()
     {
         gameOver = true;
+        
+        _spawner = FindObjectOfType<Spawner>();
     }
 
     // Update is called once per frame
@@ -33,23 +37,25 @@ public class GameManager : MonoBehaviour
     {
         gameOver = false;
 
-        canvasManager.titleScreen.SetActive(false);
-        canvasManager.playerScreen.SetActive(true);
+        //canvasManager.titleScreen.SetActive(false);
+        //canvasManager.playerScreen.SetActive(true);
 
-        canvasManager.UpdateHealth(100);
-        
-        player.health = 100;
-        player.gameObject.SetActive(true);
+        //canvasManager.UpdateHealth(100);
 
-        spawner.SpawnEnemies();
+        OnGameStarted?.Invoke(this, EventArgs.Empty);
+
+        _spawner.SpawnPlayer();
+        _spawner.SpawnEnemies();
     }
 
     public void GameOver()
     {
         gameOver = true;
 
-        canvasManager.titleScreen.SetActive(true);
-        canvasManager.playerScreen.SetActive(false);
+        //canvasManager.titleScreen.SetActive(true);
+        //canvasManager.playerScreen.SetActive(false);
+
+        OnGameOver?.Invoke(this, EventArgs.Empty);
 
         Enemy[] enemies = FindObjectsOfType<Enemy>();
 
