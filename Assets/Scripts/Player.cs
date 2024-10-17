@@ -1,21 +1,31 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
-    public float moveSpeed = 5.0f;
-    public float health = 100.0f;
+    [SerializeField] private float _moveSpeed = 5.0f;
+    [SerializeField] private float health = 100.0f;
 
-    public Rigidbody2D rb;
-    public Animator animator;
-    public SpriteRenderer spriteRenderer;
-    public GameObject projectilePrefab;
-
-    public CanvasManager canvasManager;
-
+    [SerializeField] private GameObject _projectilePrefab;
+    
+    private Rigidbody2D _rigidbody;
+    
+    private Animator _animator;
+    
+    private SpriteRenderer _spriteRenderer;
+    
     private Vector2 moveDir;
+    
+    public event EventHandler<FloatEventArgs> OnHealthChanged;
+
+    private void Start()
+    {
+        _rigidbody = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -31,12 +41,11 @@ public class Player : MonoBehaviour
         }
 
         Movement();
-
     }
 
     private void Movement()
     {
-        rb.MovePosition(rb.position + moveDir * moveSpeed * Time.fixedDeltaTime);
+        _rigidbody.MovePosition(_rigidbody.position + moveDir * _moveSpeed * Time.fixedDeltaTime);
 
         if (transform.position.x <= -14.5f)
         {
@@ -67,7 +76,7 @@ public class Player : MonoBehaviour
         Vector3 distanceVector = mousePosition - transform.position;
         Vector3 projectileDir = distanceVector.normalized;
 
-        GameObject projectileGameObject = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        GameObject projectileGameObject = Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
         Projectile projectile = projectileGameObject.GetComponent<Projectile>();
         projectile.moveDir = projectileDir;
 
@@ -79,15 +88,15 @@ public class Player : MonoBehaviour
     {
         if (moveDir != Vector2.zero)
         {
-            animator.SetBool("Move", true);
+            _animator.SetBool("Move", true);
 
-            if (moveDir.x > 0) spriteRenderer.flipX = true;
-            else if (moveDir.x < 0) spriteRenderer.flipX = false;
+            if (moveDir.x > 0) _spriteRenderer.flipX = true;
+            else if (moveDir.x < 0) _spriteRenderer.flipX = false;
 
         }
         else
         {
-            animator.SetBool("Move", false);
+            _animator.SetBool("Move", false);
         }
     }
 
@@ -99,14 +108,12 @@ public class Player : MonoBehaviour
         {
             gameObject.SetActive(false);
 
-            GameManager gameManager = FindObjectOfType<GameManager>();
-            
-            gameManager.GameOver();
+            GameManager.Instance.GameOver();
 
             return;
         }
 
-        canvasManager.UpdateHealth(health);
+        OnHealthChanged?.Invoke(this, new FloatEventArgs { value = health });
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

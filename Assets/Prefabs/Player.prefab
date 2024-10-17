@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3661842824790755279
 Transform:
   m_ObjectHideFlags: 0
@@ -193,10 +193,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fe42aef5e705bd4782c6e307cbcdf57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  _moveSpeed: 5
   health: 100
-  rb: {fileID: 2558730188660378892}
-  animator: {fileID: 2890699815778353096}
-  spriteRenderer: {fileID: 1649941520041589308}
-  projectilePrefab: {fileID: 5528919545251318936, guid: 36f19461a35345c49a5503e578842290, type: 3}
-  canvasManager: {fileID: 0}
+  _rigidbody: {fileID: 0}
+  _animator: {fileID: 0}
+  _spriteRenderer: {fileID: 0}
+  _projectilePrefab: {fileID: 5528919545251318936, guid: 36f19461a35345c49a5503e578842290, type: 3}

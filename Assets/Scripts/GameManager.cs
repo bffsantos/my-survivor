@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -37,11 +36,6 @@ public class GameManager : Singleton<GameManager>
     {
         gameOver = false;
 
-        //canvasManager.titleScreen.SetActive(false);
-        //canvasManager.playerScreen.SetActive(true);
-
-        //canvasManager.UpdateHealth(100);
-
         OnGameStarted?.Invoke(this, EventArgs.Empty);
 
         _spawner.SpawnPlayer();
@@ -51,9 +45,6 @@ public class GameManager : Singleton<GameManager>
     public void GameOver()
     {
         gameOver = true;
-
-        //canvasManager.titleScreen.SetActive(true);
-        //canvasManager.playerScreen.SetActive(false);
 
         OnGameOver?.Invoke(this, EventArgs.Empty);
 
