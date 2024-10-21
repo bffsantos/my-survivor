@@ -1,7 +1,9 @@
-using UnityEngine;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class UIManager : MonoBehaviour
+public class UIMainGame : MonoBehaviour
 {
     public GameObject titleScreen;
     public GameObject playerScreen;

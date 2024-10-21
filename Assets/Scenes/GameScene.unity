@@ -716,10 +716,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 955250965}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6fe07eaa9672144ca8e0b2fab27aaa5, type: 3}
+  m_Script: {fileID: 11500000, guid: c132d178559f3d140becbb23c6ad7507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthText: {fileID: 0}
   titleScreen: {fileID: 698305860}
   playerScreen: {fileID: 610326913}
 --- !u!1 &962682854
