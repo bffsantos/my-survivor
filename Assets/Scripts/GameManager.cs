@@ -36,10 +36,10 @@ public class GameManager : Singleton<GameManager>
     {
         gameOver = false;
 
-        OnGameStarted?.Invoke(this, EventArgs.Empty);
-
         _spawner.SpawnPlayer();
         _spawner.SpawnEnemies();
+
+        OnGameStarted?.Invoke(this, EventArgs.Empty);
     }
 
     public void GameOver()

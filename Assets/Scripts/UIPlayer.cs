@@ -8,12 +8,12 @@ public class UIPlayer : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _healthText;
 
-    private Player _playerReference;
-
-    public void BindEvents(Player player)
+    public void OnEnable()
     {
-        _playerReference = player;
-        _playerReference.OnHealthChanged += Player_OnHealthChanged;
+        Player playerReference = FindObjectOfType<Player>();
+
+        if (playerReference != null)
+            playerReference.OnHealthChanged += Player_OnHealthChanged;
     }
 
     private void Player_OnHealthChanged(object sender, FloatEventArgs e)
@@ -23,7 +23,10 @@ public class UIPlayer : MonoBehaviour
 
     private void OnDisable()
     {
-        _playerReference.OnHealthChanged -= Player_OnHealthChanged;
+        Player playerReference = FindObjectOfType<Player>();
+
+        if (playerReference != null)
+            playerReference.OnHealthChanged -= Player_OnHealthChanged;
     }
 
 }
