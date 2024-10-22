@@ -55,4 +55,9 @@ public class GameManager : Singleton<GameManager>
             Destroy(e.gameObject);
         }
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }

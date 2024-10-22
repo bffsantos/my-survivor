@@ -6,17 +6,21 @@ using UnityEngine.Audio;
 
 public class SoundManager : Singleton<SoundManager>
 {
-    [SerializeField] private AudioSource _musicSource;
-    [SerializeField] private AudioSource _effectsSource;
+    [SerializeField] private AudioSource _musicAudioSource;
 
     [SerializeField] private AudioMixer _mixer;
     [SerializeField] private AudioMixerGroup _effectsGroup;
-    [SerializeField] private AudioMixerGroup _musicGroup;
+    [SerializeField] private AudioMixerGroup _backgroundMusicGroup;
+    [SerializeField] private AudioMixerGroup _interfaceGroup;
 
     [SerializeField] private SoundAudioClip[] _soundAudioClipArray;
 
     private GameObject _oneShotGameObject;
     private AudioSource _oneShotAudioSource;
+
+    private const string BACKGROUNDMUSIC_VOLUME = "BackgroundMusicVolume";
+    private const string EFFECTS_VOLUME = "EffectsVolume";
+    private const string INTERFACE_VOLUME = "InterfaceVolume";
 
     new void Awake()
     {
@@ -71,42 +75,47 @@ public class SoundManager : Singleton<SoundManager>
 
     public void PlayMusic(ESound sound)
     {
-        _musicSource.loop = true;
-        _musicSource.clip = GetAudioClip(sound);
-        _musicSource.Play();
+        _musicAudioSource.loop = true;
+        _musicAudioSource.clip = GetAudioClip(sound);
+        _musicAudioSource.Play();
     }
 
     public void PlayMusic(ESound sound, float playbackTime)
     {
-        _musicSource.loop = true;
-        _musicSource.time = playbackTime;
-        _musicSource.clip = GetAudioClip(sound);
-        _musicSource.Play();
+        _musicAudioSource.loop = true;
+        _musicAudioSource.time = playbackTime;
+        _musicAudioSource.clip = GetAudioClip(sound);
+        _musicAudioSource.Play();
     }
 
     public void PauseMusic()
     {
-        _musicSource.Pause();
+        _musicAudioSource.Pause();
     }
 
     public void UnPauseMusic()
     {
-        _musicSource.UnPause();
+        _musicAudioSource.UnPause();
     }
 
     public void StopMusic()
     {
-        _musicSource.Stop();
+        _musicAudioSource.Stop();
     }
 
     public void SetMusicVolume(float value)
     {
-        _mixer.SetFloat("musicVolume", Mathf.Log10(value) * 20);
+        _mixer.SetFloat(BACKGROUNDMUSIC_VOLUME, Mathf.Log10(value) * 20);
     }
 
     public void SetEffectsVolume(float value)
     {
-        _mixer.SetFloat("effectsVolume", Mathf.Log10(value) * 20);
+        _mixer.SetFloat(EFFECTS_VOLUME, Mathf.Log10(value) * 20);
+    }
+
+    public void SetInterfaceVolume(float value)
+    {
+        _mixer.SetFloat(INTERFACE_VOLUME, Mathf.Log10(value) * 20);
     }
 
     public AudioClip GetAudioClip(ESound sound)
