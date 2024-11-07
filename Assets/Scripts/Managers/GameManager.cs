@@ -2,11 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    private Spawner _spawner;
-    
     public bool gameOver;
 
     public event EventHandler OnGameStarted;
@@ -16,8 +15,6 @@ public class GameManager : Singleton<GameManager>
     void Start()
     {
         gameOver = true;
-        
-        _spawner = FindObjectOfType<Spawner>();
     }
 
     // Update is called once per frame
@@ -32,12 +29,19 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    public void LoadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
+
     public void StartGame()
     {
         gameOver = false;
 
-        _spawner.SpawnPlayer();
-        _spawner.SpawnEnemies();
+        Spawner spawner = FindObjectOfType<Spawner>();
+
+        spawner.SpawnPlayer();
+        spawner.SpawnEnemies();
 
         OnGameStarted?.Invoke(this, EventArgs.Empty);
     }
