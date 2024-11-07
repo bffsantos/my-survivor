@@ -26,9 +26,7 @@ public class Spawner : MonoBehaviour
 
     private IEnumerator SpawnCoroutine(float interval)
     {
-        GameManager gameManager = FindObjectOfType<GameManager>();
-
-        while (!gameManager.gameOver)
+        while (true)
         {
             Vector2 randomPosition = GenerateRandomPosition();
 

@@ -18,7 +18,7 @@ public class UIMainMenu : MonoBehaviour
 
     private void StartGame()
     {
-        GameManager.Instance.StartGame();
+        GameManager.Instance.LoadScene("GameScene");
     }
 
     private void OpenOptions()

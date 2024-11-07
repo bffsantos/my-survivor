@@ -108,7 +108,9 @@ public class Player : MonoBehaviour
         {
             gameObject.SetActive(false);
 
-            GameManager.Instance.GameOver();
+            GameState gameSate = FindObjectOfType<GameState>();
+
+            
 
             return;
         }
