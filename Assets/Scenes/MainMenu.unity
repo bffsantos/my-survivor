@@ -704,7 +704,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c878a1866c73acc42b2c76d73a96e31c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startButton: {fileID: 217529508}
+  _playButton: {fileID: 217529508}
   _optionsButton: {fileID: 2129233377}
   _quitButton: {fileID: 1683057895}
 --- !u!1 &926835005

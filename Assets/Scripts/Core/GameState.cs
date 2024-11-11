@@ -28,5 +28,7 @@ public class GameState : MonoBehaviour
         {
             Destroy(e.gameObject);
         }
+
+        PanelManager.Instance.ShowPanel("GameOverPanel");
     }
 }

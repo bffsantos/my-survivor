@@ -110,7 +110,7 @@ public class Player : MonoBehaviour
 
             GameState gameSate = FindObjectOfType<GameState>();
 
-            
+            gameSate.GameOver();
 
             return;
         }
