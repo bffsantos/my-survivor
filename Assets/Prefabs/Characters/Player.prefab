@@ -195,7 +195,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 5
   health: 100
-  _rigidbody: {fileID: 0}
-  _animator: {fileID: 0}
-  _spriteRenderer: {fileID: 0}
   _projectilePrefab: {fileID: 5528919545251318936, guid: 36f19461a35345c49a5503e578842290, type: 3}
+  _playerEvent: {fileID: 11400000, guid: d924ee37ad0c09640ad3d55fe2bff838, type: 2}

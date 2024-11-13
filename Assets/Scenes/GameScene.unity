@@ -346,6 +346,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthText: {fileID: 962682856}
+  _playerEvent: {fileID: 11400000, guid: d924ee37ad0c09640ad3d55fe2bff838, type: 2}
 --- !u!1 &936105842
 GameObject:
   m_ObjectHideFlags: 0

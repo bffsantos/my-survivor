@@ -8,25 +8,24 @@ public class UIPlayer : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _healthText;
 
+    [SerializeField] private PlayerEventsScriptableObject _playerEvent;
+
     public void OnEnable()
     {
-        Player playerReference = FindObjectOfType<Player>();
-
-        if (playerReference != null)
-            playerReference.OnHealthChanged += Player_OnHealthChanged;
-    }
-
-    private void Player_OnHealthChanged(object sender, FloatEventArgs e)
-    {
-        _healthText.text = e.value.ToString();
+        if (_playerEvent != null)
+            _playerEvent.OnHealthChanged += Player_OnHealthChanged;
     }
 
     private void OnDisable()
     {
         Player playerReference = FindObjectOfType<Player>();
 
-        if (playerReference != null)
-            playerReference.OnHealthChanged -= Player_OnHealthChanged;
+        if (_playerEvent != null)
+            _playerEvent.OnHealthChanged -= Player_OnHealthChanged;
     }
 
+    private void Player_OnHealthChanged(object sender, FloatEventArgs e)
+    {
+        _healthText.text = e.value.ToString();
+    }
 }

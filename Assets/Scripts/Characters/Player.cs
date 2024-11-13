@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float health = 100.0f;
 
     [SerializeField] private GameObject _projectilePrefab;
+
+    [SerializeField] private PlayerEventsScriptableObject _playerEvent;
     
     private Rigidbody2D _rigidbody;
     
@@ -17,8 +19,6 @@ public class Player : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     
     private Vector2 moveDir;
-    
-    public event EventHandler<FloatEventArgs> OnHealthChanged;
 
     private void Start()
     {
@@ -115,7 +115,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        OnHealthChanged?.Invoke(this, new FloatEventArgs { value = health });
+        _playerEvent.HealthChanged(health);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
