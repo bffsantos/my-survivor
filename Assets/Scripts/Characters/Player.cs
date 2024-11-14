@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] private GameObject _projectilePrefab;
 
-    [SerializeField] private PlayerEventsScriptableObject _playerEvent;
+    [SerializeField] private FloatGameEvent _healthEvent;
     
     private Rigidbody2D _rigidbody;
     
@@ -108,14 +108,14 @@ public class Player : MonoBehaviour
         {
             gameObject.SetActive(false);
 
-            GameState gameSate = FindObjectOfType<GameState>();
+            GameState gameSate = FindAnyObjectByType<GameState>();
 
             gameSate.GameOver();
 
             return;
         }
 
-        _playerEvent.HealthChanged(health);
+        _healthEvent.Broadcast(health);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

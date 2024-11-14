@@ -16,6 +16,10 @@ public class Spawner : MonoBehaviour
     public void SpawnPlayer()
     {
         GameObject playerGameObject = Instantiate(_playerPrefab);
+
+        CameraFollow cameraFollow = FindAnyObjectByType<CameraFollow>();
+
+        cameraFollow.player = playerGameObject.transform;
         player = playerGameObject.transform;
     }
 
