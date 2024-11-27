@@ -6,6 +6,8 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] private GameObject _playerPrefab;
+
+    [SerializeField] private EnemyData[] enemiesData;
     
     private Transform player;
 
@@ -36,9 +38,15 @@ public class Spawner : MonoBehaviour
 
             randomPosition += (Vector2)player.position;
 
-            GameObject enemy = Instantiate(_enemyPrefab);
-            enemy.transform.position = randomPosition;
-            enemy.GetComponent<Enemy>().target = player;
+            GameObject enemyGameObject = Instantiate(_enemyPrefab);
+            Enemy enemyScript = enemyGameObject.GetComponent<Enemy>();
+
+            EnemyData enemyData = enemiesData[Random.Range(0, enemiesData.Length - 1)];
+
+            enemyScript.InitializeData(enemyData.moveSpeed, enemyData.damage, enemyData.health, enemyData.animController, enemyData.sprite);
+
+            enemyGameObject.transform.position = randomPosition;
+            enemyGameObject.GetComponent<Enemy>().target = player;
 
             yield return new WaitForSeconds(interval);
         }

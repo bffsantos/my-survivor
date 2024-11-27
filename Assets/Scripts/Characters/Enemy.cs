@@ -1,30 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float moveSpeed = 5.0f;
-    public float damage = 5.0f;
-    public float health = 40.0f;
+    private float _moveSpeed = 5.0f;
+    private float _damage = 5.0f;
+    private float _health = 40.0f;
 
-    public Rigidbody2D rb;
-    public Animator animator;
-    public SpriteRenderer spriteRenderer;
+    private Rigidbody2D _rb;
+    private Animator _animator;
+    private SpriteRenderer _spriteRenderer;
+    
+    private Vector2 moveDir;
 
     public Transform target;
 
-    private Vector2 moveDir;
-
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (target)
         {
             moveDir = (target.position - transform.position).normalized;
 
-            if (moveDir.x < 0) spriteRenderer.flipX = true;
-            else if (moveDir.x > 0) spriteRenderer.flipX = false;
+            if (moveDir.x < 0) _spriteRenderer.flipX = true;
+            else if (moveDir.x > 0) _spriteRenderer.flipX = false;
         }
         else
         {
@@ -34,16 +35,29 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + moveDir * moveSpeed * Time.fixedDeltaTime);
+        _rb.MovePosition(_rb.position + moveDir * _moveSpeed * Time.fixedDeltaTime);
+    }
+
+    public void InitializeData(float moveSpeed, float damage, float health, AnimatorController animController, Sprite sprite)
+    {
+        _rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+
+        _moveSpeed = moveSpeed;
+        _damage = damage;
+        _health = health;
+        _animator.runtimeAnimatorController = animController;
+        _spriteRenderer.sprite = sprite;
     }
 
     public void OnDamage(float damage)
     {
-        health -= damage;
+        _health -= damage;
 
-        if(health <= 0)
+        if(_health <= 0)
         {
-            animator.SetBool("Death", true);
+            _animator.SetBool("Death", true);
             
             target = null;
                         

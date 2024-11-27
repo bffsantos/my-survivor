@@ -124,7 +124,7 @@ public class Player : MonoBehaviour
         {
             Enemy enemy = collision.GetComponent<Enemy>();
 
-            OnDamage(enemy.damage);
+            OnDamage(enemy._damage);
         }
     }
 }
