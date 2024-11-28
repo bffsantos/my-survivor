@@ -41,7 +41,7 @@ public class ObjectPool : Singleton<ObjectPool>
         var prefab = PrefabsForPool.FirstOrDefault(obj => obj.name == objectName);
         if (prefab != null)
         {
-            GameObject canvas = GameObject.Find("CanvasOverlay");
+            GameObject canvas = GameObject.Find("Canvas");
             // Create a new instance
             var newInstace = Instantiate(prefab, canvas.transform);
 

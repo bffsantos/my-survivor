@@ -57,4 +57,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 295e411baeda8f14491a008db4cc415f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PrefabsForPool: []
+  PrefabsForPool:
+  - {fileID: 1839377186787984574, guid: 57cf49b4783dd1041a49f59402084546, type: 3}
