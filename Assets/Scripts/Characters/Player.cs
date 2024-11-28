@@ -89,7 +89,7 @@ public class Player : MonoBehaviour, IDamageable
     {
         if (moveDir != Vector2.zero)
         {
-            _animator.SetBool("Move", true);
+            SetAnimationParam("Move", true);
 
             if (moveDir.x > 0) _spriteRenderer.flipX = true;
             else if (moveDir.x < 0) _spriteRenderer.flipX = false;
@@ -97,7 +97,7 @@ public class Player : MonoBehaviour, IDamageable
         }
         else
         {
-            _animator.SetBool("Move", false);
+            SetAnimationParam("Move", false);
         }
     }
 
@@ -117,5 +117,11 @@ public class Player : MonoBehaviour, IDamageable
         }
 
         _healthEvent.Broadcast(health);
+    }
+
+    private void SetAnimationParam(string key, bool value)
+    {
+        if(_animator != null)
+            _animator.SetBool(key, value);
     }
 }

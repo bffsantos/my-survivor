@@ -59,7 +59,8 @@ public class Enemy : MonoBehaviour, IDamageable
 
         if(_health <= 0)
         {
-            _animator.SetBool("Death", true);
+            if(_animator != null)
+                SetAnimationParam("Death", true);
             
             target = null;
                         
@@ -80,5 +81,11 @@ public class Enemy : MonoBehaviour, IDamageable
                 damageable.OnDamage(_damage);
             }
         }
+    }
+
+    private void SetAnimationParam(string key, bool value)
+    {
+        if (_animator != null)
+            _animator.SetBool(key, value);
     }
 }

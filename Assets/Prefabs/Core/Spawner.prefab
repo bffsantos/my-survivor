@@ -48,5 +48,8 @@ MonoBehaviour:
   _playerPrefab: {fileID: 7738564342929224521, guid: 82237c282767bcf45a867552ec67a3e7, type: 3}
   enemiesData:
   - {fileID: 11400000, guid: 75f0fb25137c2a44a9b02e25912c8e17, type: 2}
+  - {fileID: 11400000, guid: e5bc7d00ce8a7d64f89e9c95fafd4d50, type: 2}
+  - {fileID: 11400000, guid: cf5f87b2c10c6d94ca8224dfbac44784, type: 2}
+  - {fileID: 11400000, guid: 8fb836134c1e0b84783734ac8d3d6422, type: 2}
   spawnArea: {x: 10, y: 6}
   spawnInterval: 3

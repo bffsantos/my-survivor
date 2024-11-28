@@ -41,7 +41,7 @@ public class Spawner : MonoBehaviour
             GameObject enemyGameObject = Instantiate(_enemyPrefab);
             Enemy enemyScript = enemyGameObject.GetComponent<Enemy>();
 
-            EnemyData enemyData = enemiesData[Random.Range(0, enemiesData.Length - 1)];
+            EnemyData enemyData = enemiesData[Random.Range(0, enemiesData.Length)];
 
             enemyScript.InitializeData(enemyData.moveSpeed, enemyData.damage, enemyData.health, enemyData.animController, enemyData.sprite);
 
