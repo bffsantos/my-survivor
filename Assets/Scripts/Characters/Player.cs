@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
     [SerializeField] private float _moveSpeed = 5.0f;
     [SerializeField] private float health = 100.0f;
@@ -79,6 +79,7 @@ public class Player : MonoBehaviour
         GameObject projectileGameObject = Instantiate(_projectilePrefab, transform.position, Quaternion.identity);
         Projectile projectile = projectileGameObject.GetComponent<Projectile>();
         projectile.moveDir = projectileDir;
+        projectile.owner = gameObject;
 
         float angle = Mathf.Atan2(distanceVector.y, distanceVector.x) * Mathf.Rad2Deg;
         projectileGameObject.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -100,7 +101,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnDamage(float damage)
+    public void OnDamage(float damage)
     {
         health -= damage;
 
@@ -116,15 +117,5 @@ public class Player : MonoBehaviour
         }
 
         _healthEvent.Broadcast(health);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag.Equals("Enemy"))
-        {
-            Enemy enemy = collision.GetComponent<Enemy>();
-
-            OnDamage(enemy._damage);
-        }
     }
 }

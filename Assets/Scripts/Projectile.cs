@@ -12,6 +12,8 @@ public class Projectile : MonoBehaviour
 
     public Vector2 moveDir;
 
+    public GameObject owner;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,13 +28,18 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Enemy enemy = collision.GetComponent<Enemy>();
+        IDamageable damageable = collision.GetComponent<IDamageable>();
 
-        if (enemy)
+        if (damageable != null)
         {
-            enemy.OnDamage(damage);
+            Enemy enemyScript = collision.GetComponent<Enemy>();
 
-            Destroy(gameObject);
+            if (enemyScript != null) 
+            {
+                damageable.OnDamage(damage);
+
+                Destroy(gameObject);
+            }
         }
     }
 }

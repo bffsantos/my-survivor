@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.Animations;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamageable
 {
     private float _moveSpeed = 5.0f;
     private float _damage = 5.0f;
@@ -16,6 +16,13 @@ public class Enemy : MonoBehaviour
     private Vector2 moveDir;
 
     public Transform target;
+
+    private void Awake()
+    {
+        _rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     // Update is called once per frame
     private void Update()
@@ -40,15 +47,10 @@ public class Enemy : MonoBehaviour
 
     public void InitializeData(float moveSpeed, float damage, float health, AnimatorController animController, Sprite sprite)
     {
-        _rb = GetComponent<Rigidbody2D>();
-        _animator = GetComponent<Animator>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-
         _moveSpeed = moveSpeed;
         _damage = damage;
         _health = health;
         _animator.runtimeAnimatorController = animController;
-        _spriteRenderer.sprite = sprite;
     }
 
     public void OnDamage(float damage)
@@ -62,6 +64,21 @@ public class Enemy : MonoBehaviour
             target = null;
                         
             Destroy(gameObject, 1f);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        IDamageable damageable = collision.GetComponent<IDamageable>();
+
+        if (damageable != null)
+        {
+            Player playerScript = collision.GetComponent<Player>();
+
+            if (playerScript != null)
+            {
+                damageable.OnDamage(_damage);
+            }
         }
     }
 }
