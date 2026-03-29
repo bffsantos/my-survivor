@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour, IDamageable
 {
@@ -12,40 +13,50 @@ public class Player : MonoBehaviour, IDamageable
 
     [SerializeField] private FloatGameEvent _healthEvent;
     
+    private PlayerInput _playerInput;
+    private InputAction _inputAction;
+
     private Rigidbody2D _rigidbody;
     
     private Animator _animator;
     
     private SpriteRenderer _spriteRenderer;
-    
-    private Vector2 moveDir;
+
+    private Vector2 _moveDir;
 
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _playerInput = GetComponent<PlayerInput>();
+        _inputAction = _playerInput.actions["Move"];
     }
 
     // Update is called once per frame
     void Update()
     {
-        moveDir.x = Input.GetAxis("Horizontal");
-        moveDir.y = Input.GetAxis("Vertical");
+        Vector2 moveInput = _inputAction.ReadValue<Vector2>();
+        float vertical = moveInput.y;
+        float horizontal = moveInput.x;
+
+        _moveDir = new Vector2(horizontal, vertical);
 
         PlayerAnimation();
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Mouse.current.leftButton.wasPressedThisFrame)
         {
             Shoot();
         }
 
         Movement();
+
+        PlayerAnimation();
     }
 
     private void Movement()
     {
-        _rigidbody.MovePosition(_rigidbody.position + moveDir * _moveSpeed * Time.fixedDeltaTime);
+        _rigidbody.MovePosition(_rigidbody.position + _moveDir * _moveSpeed * Time.fixedDeltaTime);
 
         if (transform.position.x <= -14.5f)
         {
@@ -67,8 +78,8 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Shoot()
     {
-        float mouseX = Input.mousePosition.x;
-        float mouseY = Input.mousePosition.y;
+        float mouseX = Mouse.current.position.value.x;
+        float mouseY = Mouse.current.position.value.y;
 
         Vector3 inputPosition = new Vector3(mouseX, mouseY, 10.0f);
 
@@ -87,12 +98,12 @@ public class Player : MonoBehaviour, IDamageable
 
     private void PlayerAnimation()
     {
-        if (moveDir != Vector2.zero)
+        if (_moveDir != Vector2.zero)
         {
             SetAnimationParam("Move", true);
 
-            if (moveDir.x > 0) _spriteRenderer.flipX = true;
-            else if (moveDir.x < 0) _spriteRenderer.flipX = false;
+            if (_moveDir.x > 0) _spriteRenderer.flipX = true;
+            else if (_moveDir.x < 0) _spriteRenderer.flipX = false;
 
         }
         else

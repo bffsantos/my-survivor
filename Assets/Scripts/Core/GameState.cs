@@ -14,7 +14,7 @@ public class GameState : MonoBehaviour
 
     public void StartGame()
     {
-        Spawner spawner = FindObjectOfType<Spawner>();
+        Spawner spawner = FindFirstObjectByType<Spawner>();
 
         spawner.SpawnPlayer();
         spawner.SpawnEnemies();
@@ -22,7 +22,7 @@ public class GameState : MonoBehaviour
 
     public void GameOver()
     {
-        Enemy[] enemies = FindObjectsOfType<Enemy>();
+        Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.InstanceID);
 
         foreach (Enemy e in enemies)
         {
