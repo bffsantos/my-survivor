@@ -59,13 +59,18 @@ public class Enemy : MonoBehaviour, IDamageable
 
         if(_health <= 0)
         {
-            if(_animator != null)
-                SetAnimationParam("Death", true);
-            
-            target = null;
-                        
-            Destroy(gameObject, 1f);
+            OnDeath();
         }
+    }
+
+    private void OnDeath()
+    {
+        if (_animator != null)
+            SetAnimationParam("Death", true);
+
+        target = null;
+
+        Destroy(gameObject, 1f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

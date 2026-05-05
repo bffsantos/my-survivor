@@ -41,7 +41,7 @@ public class Player : MonoBehaviour, IDamageable
         float horizontal = moveInput.x;
 
         _moveDir = new Vector2(horizontal, vertical);
-
+        Debug.Log(_moveDir);
         PlayerAnimation();
 
         if (Mouse.current.leftButton.wasPressedThisFrame)
