@@ -28,7 +28,7 @@ public class Player : MonoBehaviour, IDamageable
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _playerInput = GetComponent<PlayerInput>();
         _inputAction = _playerInput.actions["Move"];
     }
