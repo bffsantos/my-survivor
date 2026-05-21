@@ -16,4 +16,4 @@ MonoBehaviour:
   damage: 1
   health: 40
   animController: {fileID: 9100000, guid: 904f3c8f6abcb4046a3182a3cc25a45f, type: 2}
-  sprite: {fileID: 0}
+  sprite: {fileID: -4795363162621231457, guid: 6d7cd4f7505dc674c891ca8946cfd98b, type: 3}

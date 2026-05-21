@@ -80,7 +80,7 @@ AnimationClip:
     - time: 0.5833333
       value: {fileID: 7784096630628774620, guid: 6d7cd4f7505dc674c891ca8946cfd98b, type: 3}
     attribute: m_Sprite
-    path: 
+    path: MainSprite
     classID: 212
     script: {fileID: 0}
     flags: 2
@@ -101,7 +101,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 0
+      path: 1418253986
       attribute: 0
       script: {fileID: 0}
       typeID: 212
